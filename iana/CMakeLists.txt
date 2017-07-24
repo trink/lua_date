@@ -1,0 +1,24 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+project(iana-tzdata VERSION 2017.2.0 LANGUAGES NONE)
+
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "IANA timezone data")
+set(CPACK_INSTALL_CMAKE_PROJECTS "${CMAKE_CURRENT_BINARY_DIR};${PROJECT_NAME};ALL;/")
+set(CPACK_PACKAGE_VERSION_MAJOR  ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR  ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH  ${PROJECT_VERSION_PATCH})
+set(CPACK_PACKAGE_VENDOR         "Trink")
+set(CPACK_PACKAGE_CONTACT        "Mike Trinkala <trink@acm.org>")
+set(CPACK_OUTPUT_CONFIG_FILE     "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cpack")
+set(CPACK_STRIP_FILES            TRUE)
+set(CPACK_RESOURCE_FILE_LICENSE  "${CMAKE_SOURCE_DIR}/LICENSE.txt")
+set(CPACK_RPM_PACKAGE_LICENSE    "MPLv2.0")
+
+set(PACKAGE_COMMANDS ${PACKAGE_COMMANDS} COMMAND cpack -G ${CPACK_GENERATOR} --config ${PROJECT_NAME}.cpack PARENT_SCOPE)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tzdata/ DESTINATION ${INSTALL_IANA_PATH}/tzdata ${DPERMISSION})
+
+include(CPack)
